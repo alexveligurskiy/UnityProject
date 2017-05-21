@@ -9,6 +9,7 @@ public class HeroRabbit : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
+		LevelControll.current.setStartPosition (transform.position);
 	}
 	
 	// Update is called once per frame
@@ -23,11 +24,18 @@ public class HeroRabbit : MonoBehaviour {
 			myBody.velocity = vel;
 		}
 
+		Animator animator = GetComponent<Animator> ();
+		if(Mathf.Abs(value) > 0) {
+			animator.SetBool ("run", true);
+		} else {
+			animator.SetBool ("run", false);
+		}
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 		if(value < 0) {
 			sr.flipX = true;
 		} else if(value > 0) {
 			sr.flipX = false;
 		}
+
 	}
 }
