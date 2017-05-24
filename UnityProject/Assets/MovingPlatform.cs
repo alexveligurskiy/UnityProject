@@ -22,18 +22,18 @@ public class MovingPlatform : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Vector3 target;
-
-		if (is_moving_A) {
-			target = this.pointA;
-		} else {
-			target = this.pointB;
-		}	
-		Vector3 my_pos = this.transform.position;
-		if(isArrived(target, my_pos)){
-			is_moving_A = !is_moving_A;
-		} else {
-			Vector3 destination = target - my_pos;
-		}
+//		Vector3 target;
+//
+////		if (is_moving_A) {
+//			target = this.pointA;
+//		} else {
+//			target = this.pointB;
+//		}	
+//		Vector3 my_pos = this.transform.position;
+//		if(isArrived(target, my_pos)){
+////			is_moving_A = !is_moving_A;
+//		} else {
+//			Vector3 destination = target - my_pos;
+//		}
 	}
 }

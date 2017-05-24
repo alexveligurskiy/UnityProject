@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeroRabbit : MonoBehaviour {
 	public float speed = 1;
-	float diff = Time.deltaTime;
+	//float diff = Time.deltaTime;
 	bool isGrounded = false;
 	bool JumpActive = false;
 	float JumpTime = 0f;
