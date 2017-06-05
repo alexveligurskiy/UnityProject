@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bombs : Collectable{
-	protected override void OnRabbitHit(HeroRabbit rabit){
+	protected override void OnRabbitHit(HeroRabbit rabbit){
 		this.CollectedHide();
-		rabit.removeOneHealth();
+		rabbit.removeOneHealth();
 	}
 }

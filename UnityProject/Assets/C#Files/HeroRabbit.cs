@@ -7,7 +7,7 @@ public class HeroRabbit : MonoBehaviour {
 	public float jumpTime = 0f;
 	public float maxJumpTime = 2f;
 	public float jumpSpeed = 2f;
-	public int currentHealth = 1;
+	int currentHealth = 1;
 	float timeToWait = 0.0f;
 	float redTime = 4.0f;
 	public int health = 1;
@@ -23,6 +23,11 @@ public class HeroRabbit : MonoBehaviour {
 
 	Transform heroParent = null;
 	Rigidbody2D myBody = null;
+	public static HeroRabbit lastRabbit = null;
+	void Awake()
+	{
+		lastRabbit = this;
+	}
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
@@ -63,6 +68,7 @@ public class HeroRabbit : MonoBehaviour {
 					dead = false;
 					animator.SetBool ("dead", false);
 					LevelControll.current.onRabbitDeath (this);
+					//StartCoroutine (dead ());
 
 				} else { 
 					return;
@@ -105,7 +111,7 @@ public class HeroRabbit : MonoBehaviour {
 		} else if(value > 0) {
 			sr.flipX = false;
 		}
-		//class HeroRabit, void FixedUpdate()
+		//class HeroRabbit, void FixedUpdate()
 		Vector3 from = transform.position + Vector3.up * 0.3f;
 		Vector3 to = transform.position + Vector3.down * 0.1f;
 		int layer_id = 1 << LayerMask.NameToLayer ("Ground");

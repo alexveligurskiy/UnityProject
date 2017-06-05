@@ -8,12 +8,12 @@ public class DeathHere : MonoBehaviour {
 	//коли поточний об’єкт зіштовхнеться із іншим
 	void OnTriggerEnter2D(Collider2D collider) {
 		//Намагаємося отримати компонент кролика
-		HeroRabbit rabit = collider.GetComponent<HeroRabbit> ();
+		HeroRabbit rabbit = collider.GetComponent<HeroRabbit> ();
 		//Впасти міг не тільки кролик
-		if(rabit != null) {
+		if(rabbit != null) {
 			//Повідомляємо рівень, про смерть кролика
 
-			LevelControll.current.onRabbitDeath (rabit);
+			LevelControll.current.onRabbitDeath (rabbit);
 		}
 	}
 }

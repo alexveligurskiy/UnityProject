@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Mushrooms : Collectable{
-	protected override void OnRabbitHit(HeroRabbit rabit){
-		rabit.addOneHealth();
+	protected override void OnRabbitHit(HeroRabbit rabbit){
+		rabbit.addOneHealth();
 		this.CollectedHide();
 	}
 }

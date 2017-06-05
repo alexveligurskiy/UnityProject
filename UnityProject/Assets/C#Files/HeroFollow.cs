@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class HeroFollow : MonoBehaviour {
 
-	public HeroRabbit rabit;
+	public HeroRabbit rabbit;
 
 	void Update () {
 		//Отримуємо доступ до компонента Transform
 		//це Скорочення до GetComponent<Transform>
-		Transform rabit_transform = rabit.transform;
+		Transform rabbit_transform = rabbit.transform;
 
 		//Отримуємо доступ до компонента Transform камери
 		Transform camera_transform = this.transform;
 
 		//Отримуємо доступ до координат кролика
-		Vector3 rabit_position = rabit_transform.position;
+		Vector3 rabbit_position = rabbit_transform.position;
 		Vector3 camera_position = camera_transform.position;
 
 		//Рухаємо камеру тільки по X,Y
-		camera_position.x = rabit_position.x;
-		camera_position.y = rabit_position.y;
+		camera_position.x = rabbit_position.x;
+		camera_position.y = rabbit_position.y;
 
 		//Встановлюємо координати камери
 		camera_transform.position = camera_position;

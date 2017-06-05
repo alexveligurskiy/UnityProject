@@ -5,14 +5,14 @@ using UnityEngine;
 public class Collectable : MonoBehaviour {
 
 	bool hide = false;
-	protected virtual void OnRabbitHit(HeroRabbit rabit){
+	protected virtual void OnRabbitHit(HeroRabbit rabbit){
 		
 	}
 	void OnTriggerEnter2D(Collider2D collider){
 		if (!this.hide){
-			HeroRabbit rabit = collider.GetComponent<HeroRabbit>();
-			if (rabit != null){
-				this.OnRabbitHit(rabit);
+			HeroRabbit rabbit = collider.GetComponent<HeroRabbit>();
+			if (rabbit != null){
+				this.OnRabbitHit(rabbit);
 			}
 		}
 	}

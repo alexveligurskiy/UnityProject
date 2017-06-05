@@ -14,9 +14,9 @@ public class LevelControll : MonoBehaviour {
 	public void setStartPosition(Vector3 pos) {
 		this.startingPosition = pos;
 	}
-	public void onRabbitDeath(HeroRabbit rabit) {
+	public void onRabbitDeath(HeroRabbit rabbit) {
 		//При смерті кролика повертаємо на початкову позицію
-		rabit.transform.position = this.startingPosition;
+		rabbit.transform.position = this.startingPosition;
 	}
 	public void addCoins(int coin){
 		this.coins += coin;
