@@ -7,8 +7,7 @@ public class Orc1 : MonoBehaviour {
 	public float speed = 1.0f;
 	public Vector3 moveBy = Vector3.one;
 
-	public enum Mode
-	{
+	public enum Mode{
 		GoToA,
 		GoToB,
 		Attack,
@@ -21,8 +20,7 @@ public class Orc1 : MonoBehaviour {
 	Vector3 pointB;
 	public Mode currentMode = Mode.GoToB;
 
-	void Start()
-	{
+	void Start(){
 		this.myBody = this.GetComponent<Rigidbody2D>();
 		this.pointA = this.transform.position;
 
@@ -31,45 +29,37 @@ public class Orc1 : MonoBehaviour {
 		this.pointB = pointA + moveBy;
 
 	}
-	void FixedUpdate()
-	{
+	void FixedUpdate(){
 		setMode();
 
 		run();
 		StartCoroutine(die());
 	}
 
-	private void setMode()
-	{
+	private void setMode(){
 		Vector3 rabbit_pos = HeroRabbit.lastRabbit.transform.position;
 		Vector3 my_pos = this.transform.position;
 
-		if (currentMode == Mode.Die) return;
-		else if (rabbit_pos.x > Mathf.Min(pointA.x, pointB.x)
-			&& rabbit_pos.x < Mathf.Max(pointA.x, pointB.x))
-		{
+		if (currentMode == Mode.Die) {
+			return;
+		} else if (rabbit_pos.x > Mathf.Min (pointA.x, pointB.x)
+		          && rabbit_pos.x < Mathf.Max (pointA.x, pointB.x)) {
 			currentMode = Mode.Attack;
-		}
-		else if (currentMode == Mode.GoToA)
-		{
-			if (isArrived(my_pos, pointA))
-			{
+		} else if (currentMode == Mode.GoToA) {
+			if (isArrived (my_pos, pointA)) {
 				currentMode = Mode.GoToB;
 			}
-		}
-		else if (currentMode == Mode.GoToB)
-		{
-			if (isArrived(my_pos, pointB))
-			{
+		} else if (currentMode == Mode.GoToB) {
+			if (isArrived (my_pos, pointB)) {
 				currentMode = Mode.GoToA;
 			}
+		} else {
+			currentMode = Mode.GoToB;
 		}
-		else currentMode = Mode.GoToB;
 	}
 
 
-	private IEnumerator attack(HeroRabbit rabbit)
-	{ 
+	private IEnumerator attack(HeroRabbit rabbit){ 
 		Animator animator = GetComponent<Animator>();
 
 
@@ -80,23 +70,17 @@ public class Orc1 : MonoBehaviour {
 		animator.SetBool("Attack", false);       
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (currentMode != Mode.Die)
-		{
+	void OnCollisionEnter2D(Collision2D collision){
+		if (currentMode != Mode.Die){
 			HeroRabbit rabbit = collision.gameObject.GetComponent<HeroRabbit>();
-			if (rabbit != null)
-			{
+			if (rabbit != null){
 				Vector3 rabbit_pos = HeroRabbit.lastRabbit.transform.position;
 				Vector3 my_pos = this.transform.position;
 				currentMode = Mode.Attack;
 
-				if (currentMode == Mode.Attack && Mathf.Abs(rabbit_pos.y - my_pos.y) < 1.0f)
-				{
+				if (currentMode == Mode.Attack && Mathf.Abs(rabbit_pos.y - my_pos.y) < 1.0f){
 					StartCoroutine(attack(rabbit));
-				}
-				else if (currentMode == Mode.Attack && Mathf.Abs(rabbit_pos.y - my_pos.y) > 1.0f)
-				{
+				}else if (currentMode == Mode.Attack && Mathf.Abs(rabbit_pos.y - my_pos.y) > 1.0f){
 					currentMode = Mode.Die;
 				}
 
@@ -104,75 +88,56 @@ public class Orc1 : MonoBehaviour {
 		}
 	}
 
-	private void run()
-	{
+	private void run(){
 
 		//[-1, 1]
 		float value = this.getDirection();
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 		Animator animator = GetComponent<Animator>();
 
-		if (value < 0)
-		{
+		if (value < 0){
 			sr.flipX = false;
 
-		}
-		else if (value > 0)
-		{
+		}else if (value > 0){
 			sr.flipX = true;
 		}
-		if (Mathf.Abs(value) > 0)
-		{
+		if (Mathf.Abs(value) > 0){
 			Vector2 vel = myBody.velocity;
 			vel.x = value * speed;
 			myBody.velocity = vel;
 		}
 
-		if (Mathf.Abs(value) > 0)
-		{
+		if (Mathf.Abs(value) > 0){
 			animator.SetBool("Run", true);
-		}
-		else
-		{
+		}else{
 			animator.SetBool("Run", false);
 		}
 	}
 
 
-	private float getDirection()
-	{
+	private float getDirection(){
 		Vector3 rabbit_pos = HeroRabbit.lastRabbit.transform.position;
 		Vector3 my_pos = this.transform.position;
 
-		if (currentMode == Mode.Attack)
-		{
+		if (currentMode == Mode.Attack){
 			//Move towards rabbit
-			if (my_pos.x - rabbit_pos.x < -1)
-			{
+			if (my_pos.x - rabbit_pos.x < -1) {
 				return 1;
-			}
-			else if (my_pos.x - rabbit_pos.x > 1)
-			{
+			} else if (my_pos.x - rabbit_pos.x > 1) {
 				return -1;
+			} else {
+				return 0;
 			}
-			else return 0;
-		}
-
-		else  if (currentMode == Mode.GoToA)
-		{
+		}else  if (currentMode == Mode.GoToA){
 			return -1; 
-		}
-		else if (currentMode == Mode.GoToB)
-		{
+		}else if (currentMode == Mode.GoToB){
 			return 1; 
 		}
 		return 0; 
 	}
 
-	private IEnumerator die()
-	{
-		if (currentMode == Mode.Die)
-		{
+	private IEnumerator die(){
+		if (currentMode == Mode.Die){
 			Animator animator = GetComponent<Animator>();
 			animator.SetBool("Die", true);
 			this.GetComponent<BoxCollider2D>().isTrigger = true;
@@ -186,8 +151,7 @@ public class Orc1 : MonoBehaviour {
 		}
 	}
 
-	private bool isArrived(Vector3 pos, Vector3 target)
-	{
+	private bool isArrived(Vector3 pos, Vector3 target){
 		pos.z = 0;
 		target.z = 0;
 		return Vector3.Distance(pos, target) < 0.2f;

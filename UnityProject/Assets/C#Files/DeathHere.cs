@@ -12,7 +12,7 @@ public class DeathHere : MonoBehaviour {
 		//Впасти міг не тільки кролик
 		if(rabbit != null) {
 			//Повідомляємо рівень, про смерть кролика
-			rabbit.makeRabbitBig = false;
+			rabbit.removeOneHealth();
 			LevelControll.current.onRabbitDeath (rabbit);
 		}
 	}
